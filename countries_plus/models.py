@@ -32,7 +32,7 @@ class Country(models.Model):
     class Meta:
         verbose_name = _('Country')
         verbose_name_plural = _('Countries')
-        ordering = ['name']
+        ordering = ['continent']
 
     iso = models.CharField(max_length=2, primary_key=True)
     iso3 = models.CharField(max_length=3, unique=True)
@@ -43,6 +43,7 @@ class Country(models.Model):
     area = models.DecimalField(max_digits=11, decimal_places=2, blank=True, null=True)
     population = models.IntegerField(blank=True, null=True)
     continent = models.CharField(max_length=2, blank=True, null=True)
+    full_continent = models.CharField(max_length=16, blank=True, null=True)
     tld = models.CharField(max_length=255, blank=True, null=True)
     currency_code = models.CharField(max_length=3, blank=True, null=True)
     currency_symbol = models.CharField(max_length=255, blank=True, null=True)
@@ -93,7 +94,7 @@ class Country(models.Model):
         return country
 
     def __str__(self):
-        return u'%s' % (self.name,)
+        return '{0} - {1}'.format(self.full_continent, self.name)
 
     def save(self, **kwargs):
         self.full_clean()
