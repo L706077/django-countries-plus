@@ -243,6 +243,17 @@ def parse_geonames_data(lines_iterator):
         if 'currency_code' in data and data['currency_code']:
             data['currency_symbol'] = CURRENCY_SYMBOLS.get(data['currency_code'])
 
+        full_continent_map = {
+            'AF': 'Africa',
+            'AN': 'Antarctica',
+            'AS': 'Asia',
+            'EU': 'Europe',
+            'NA': 'North America',
+            'OC': 'Oceania',
+            'SA': 'South America',
+        }
+        data['full_continent'] = full_continent_map[data['continent']]
+
         # Remove empty items
         clean_data = {x: y for x, y in data.items() if y}
 
